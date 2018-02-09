@@ -30,7 +30,7 @@ This project would be impossible to complete without the help from .
 - https://github.com/thekirankumar/youtube-android-auto
 - https://github.com/cprcrack/VideoEnabledWebView
 
-#Screenshots
+# Screenshots
 
 ![Search Page](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s1.png)
 ![Auto Complete Search](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s2.png)
