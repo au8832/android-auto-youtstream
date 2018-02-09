@@ -7,6 +7,7 @@ its easy to use while driving.
 # Install
 
 To install this app , download the apk from apk folder.
+[Download APK](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/apk/mobile-debug.apk)
 
 ## Setup the Android Auto to Developer Mode.
 - Install and open the Android Auto App
@@ -28,3 +29,10 @@ This project would be impossible to complete without the help from .
 - https://github.com/martoreto/aauto-sdk
 - https://github.com/thekirankumar/youtube-android-auto
 - https://github.com/cprcrack/VideoEnabledWebView
+
+#Screenshots
+
+![Search Page](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s1.png)
+![Auto Complete Search](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s2.png)
+![Search Results](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s3.png)
+![Video View](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s4.png)
