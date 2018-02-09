@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">YouStream</string>
+    <string name="phone_desc">This app is designed to be used only with Android Auto Interface. \n</string>
+    <string name="service_name">YouStream</string>
+    <string name="search_placeholder">Search</string>
+    <string name="instruct_search">
+        1. Search Youtube videos using the search bar on top. \n
+        2. Use touch or the rotary control to select the video. \n
+        3. The video should start to play automatically in fullscreen. \n
+    </string>
+    <string name="instruc_back">
+        1. Press the back button on the car control to go back to search page.\n
+        2. OR Close the fullscreen video using touch screen.\n
+    </string>
+    <string name="instruc_openapp">
+        1. Click on the Last Icon in Android Auto to see a list of all Android Auto Apps. \n
+        2. Select the YouStream App to start.\n
+    </string>
+    <string name="inst_disclaimer">By using this App, you agree not to use the app while driving or in hazardous
+        conditions, and relinquish any liability from the app if anything happens while using this app. \n
+    </string>
+</resources>
