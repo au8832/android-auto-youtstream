@@ -7,7 +7,7 @@ its easy to use while driving.
 # Install
 
 To install this app , download the apk from apk folder.
-[Download APK](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/apk/mobile-release.apk)
+[Download APK](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/apk/youstream-release.apk)
 
 ## Setup the Android Auto to Developer Mode.
 - Install and open the Android Auto App
