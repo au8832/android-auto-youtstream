@@ -18,9 +18,9 @@ To install this app , download the apk from apk folder.
 
 - Enable the phone to developer mode, and enable unknown sources. (you can search this step online)
 - Enable Android Auto to developer mode
-..* In About section 
-..* Developer Settings
-..* Scroll to and enable Unkown Sources
+  * In About section 
+  * Developer Settings
+  * Scroll to and enable Unkown Sources
 
 # Credits
 
