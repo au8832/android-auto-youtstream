@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SpinKitView.Large.Wave"
+        android:layout_gravity="center"
+        app:SpinKit_Color="@color/primaryColor"
+        android:id="@+id/youtubeLoading"
+        android:layout_marginTop="96dip"
+        android:visibility="gone"
+        />
+
+<com.google.android.apps.auto.sdk.ui.PagedListView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pagedView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    android:layout_marginLeft="25dip"
+    android:layout_marginRight="25dip"
+    android:layout_marginTop="96dip"
+    />
+</LinearLayout>
+

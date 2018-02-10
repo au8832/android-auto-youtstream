@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <FrameLayout
+        android:id="@+id/videoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:visibility="gone" />
+
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/nonVideoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backBtn"
+            android:text="Back"
+            />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/videoLoading"
+            style="@style/SpinKitView.Large.Wave"
+            app:SpinKit_Color="@color/primaryColor"
+            />
+
+        <com.hnxlabs.csnt.youstream.ui.VideoWebView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/webview"
+            android:focusable="false"
+            android:visibility="invisible"
+             />
+
+    </LinearLayout>
+</FrameLayout>
