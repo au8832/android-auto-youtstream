@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.webkit.ValueCallback;
 
 /**
  * Created by kiran.kumar on 11/01/18.
@@ -124,6 +125,10 @@ public class VideoWebView extends VideoEnabledWebView {
                 "} else {" +
                 "el.play()" +
                 "}");
+    }
+
+    public void getCurrentTime(ValueCallback<String> callback){
+         // evaluateJavascript(" (function(){return 7;})", callback );
     }
 
     public void pauseVideoAndSetFlag() {

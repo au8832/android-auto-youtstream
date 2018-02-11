@@ -1,10 +1,13 @@
 package com.hnxlabs.csnt.youstream;
 
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.TaskStackBuilder;
+import android.widget.ProgressBar;
 
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.apps.auto.sdk.CarUiController;
 import com.hnxlabs.csnt.youstream.listeners.FragmentsLifecyleListener;
 

@@ -81,7 +81,6 @@ public class SearchFragment extends CarFragment {
                              Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView");
 
-
         View v = inflater.inflate(R.layout.searchview_fragment, container, false);
         mProgressBar = v.findViewById(R.id.youtubeLoading);
         mPagedListView = v.findViewById(R.id.pagedView);

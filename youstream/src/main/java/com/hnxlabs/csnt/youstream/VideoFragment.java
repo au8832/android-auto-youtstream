@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -34,18 +35,17 @@ public class VideoFragment extends CarFragment {
     private String TAG ="videoFrgmet";
     private VideoWebView webView;
     private String videoId;
-    private CarUiController carUiController;
     private VideoEnabledWebChromeClient webChromeClient;
     private Button backBtn;
     private FragmentsLifecyleListener fragmentsLifecyleListener;
+    private String VIDEO_ID_KEY = "VIDEO_ID_KEY";
+    private String SAVE_TIME_ON_MODE_CHANGE_KEY = "SAVE_TIME_ON_MODE_CHANGE_KEY";
+    private String timeSaved = "";
 
 
     public VideoFragment(){
 
     }
-     public void setCarUiController(CarUiController uic){
-        this.carUiController = uic;
-     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,10 +90,6 @@ public class VideoFragment extends CarFragment {
                     fragmentsLifecyleListener.onReadyToDetach();
             }
         });
-        carUiController.getSearchController().hideSearchBox();
-        carUiController.getStatusBarController().hideAppHeader();
-        carUiController.getStatusBarController().hideConnectivityLevel();
-        carUiController.getStatusBarController().setAppBarAlpha(0f);
 
         View nonVideoLayout = v.findViewById(R.id.nonVideoLayout); // Your own view, read class comments
         ViewGroup videoLayout = (ViewGroup)v.findViewById(R.id.videoLayout); // Your own view, read class comments
@@ -133,12 +129,47 @@ public class VideoFragment extends CarFragment {
         webView.getSettings().setLoadWithOverviewMode(true);
 
         // Navigate anywhere you want, but consider that this classes have only been tested on YouTube's mobile site
-        webView.loadUrl("https://m.youtube.com/watch?v="+this.videoId);
+
         return v;
     }
 
     public void onDetach() {
         super.onDetach();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle bundle) {
+        bundle.putString(VIDEO_ID_KEY, videoId);
+        super.onSaveInstanceState(bundle);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        if(null != savedInstanceState) {
+            videoId = savedInstanceState.getString(VIDEO_ID_KEY);
+        }
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        /*webView.getCurrentTime(new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String s) {
+                Log.d(TAG, s);
+            }
+        });*/
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        getCarUiController().getSearchController().hideSearchBox();
+        getCarUiController().getStatusBarController().hideAppHeader();
+        getCarUiController().getStatusBarController().hideConnectivityLevel();
+        getCarUiController().getStatusBarController().setAppBarAlpha(0f);
+        webView.loadUrl("https://m.youtube.com/watch?v="+this.videoId);
     }
 
     @Override
@@ -190,6 +221,7 @@ public class VideoFragment extends CarFragment {
                 }
             }
         }
+
     }
 
 
