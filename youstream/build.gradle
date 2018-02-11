@@ -4,7 +4,6 @@ android {
     signingConfigs {
         config {
             storeFile file('/Users/Ahmed_Abrar/apk-keystore')
-            storePassword 'qQ!1234567'
         }
     }
     compileSdkVersion 27
@@ -27,6 +26,7 @@ android {
 configurations {
     all {
         exclude module: 'httpclient'
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
     }
 }
 
