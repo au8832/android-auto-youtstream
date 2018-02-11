@@ -20,6 +20,7 @@ import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.PromotedItem;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 import com.hnxlabs.csnt.youstream.adapters.CardsAdapter;
@@ -47,6 +48,7 @@ public class SearchFragment extends CarFragment {
     private CarUiController carUiController;
     private FragmentsLifecyleListener fragmentsLifecyleListener;
     private SpinKitView mProgressBar;
+    private final String UI_CONTROL_KEY = "CAR_UI_CONTROLLER";
 
     public SearchFragment() {
         // Required empty public constructor
@@ -93,10 +95,6 @@ public class SearchFragment extends CarFragment {
                              Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView");
 
-        carUiController.getSearchController().showSearchBox();
-        carUiController.getStatusBarController().showAppHeader();
-        carUiController.getStatusBarController().showConnectivityLevel();
-        carUiController.getStatusBarController().setAppBarAlpha(0.8f);
 
         View v = inflater.inflate(R.layout.searchview_fragment, container, false);
         mProgressBar = v.findViewById(R.id.youtubeLoading);
@@ -154,6 +152,12 @@ public class SearchFragment extends CarFragment {
     public void onStart() {
         super.onStart();
         Log.i(TAG, "onStart");
+        if(null == carUiController)
+            carUiController = MainCarActivity.getUIController();
+        carUiController.getSearchController().showSearchBox();
+        carUiController.getStatusBarController().showAppHeader();
+        carUiController.getStatusBarController().showConnectivityLevel();
+        carUiController.getStatusBarController().setAppBarAlpha(0.8f);
         setFocus();
     }
 
@@ -161,6 +165,12 @@ public class SearchFragment extends CarFragment {
     public void onResume() {
         super.onResume();
         Log.i(TAG, "onResume");
+        if(null == carUiController)
+            carUiController = MainCarActivity.getUIController();
+        carUiController.getSearchController().showSearchBox();
+        carUiController.getStatusBarController().showAppHeader();
+        carUiController.getStatusBarController().showConnectivityLevel();
+        carUiController.getStatusBarController().setAppBarAlpha(0.8f);
         setFocus();
     }
 
@@ -188,13 +198,20 @@ public class SearchFragment extends CarFragment {
     public void onDetach() {
         Log.i(TAG, "onDetach");
         super.onDetach();
-        mPagedListView.setOnGenericMotionListener(null);
+        if(null != mPagedListView)
+            mPagedListView.setOnGenericMotionListener(null);
     }
 
     @Override
     public void onDestroy() {
         Log.i(TAG, "onDestroy");
         super.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        // call superclass to save any view hierarchy
+        super.onSaveInstanceState(outState);
     }
 
     public class Tasker extends AsyncTask<String, String, CardsAdapter> {

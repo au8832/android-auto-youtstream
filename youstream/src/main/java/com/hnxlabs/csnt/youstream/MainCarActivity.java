@@ -75,7 +75,11 @@ public class MainCarActivity extends CarActivity {
     private String mCurrentFragmentTag;
     private SearchFragment searchFragment;
     private VideoFragment videoFragment;
+    private static CarUiController carUiController;
 
+    public static CarUiController getUIController(){
+        return carUiController;
+    }
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -106,7 +110,7 @@ public class MainCarActivity extends CarActivity {
 
 
 
-        final CarUiController carUiController = getCarUiController();
+        carUiController = getCarUiController();
         carUiController.getStatusBarController().showTitle();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -159,12 +163,12 @@ public class MainCarActivity extends CarActivity {
             public boolean onSearchSubmitted(String s) {
                 Log.d("searchbox", s);
                 searchFragment.startSearch(s);
-                return false;
+                return true;
             }
 
             @Override
             public void onSearchTextChanged(String s) {
-                if( s.length() > 3 )
+                if( s.length() > 1 )
                     new SearchTasker(carUiController).execute(s);
             }
         });
@@ -230,8 +234,15 @@ public class MainCarActivity extends CarActivity {
 
     @Override
     public void onStart() {
+        searchFragment.setCarUiController(getCarUiController());
+        videoFragment.setCarUiController(getCarUiController());
         super.onStart();
         switchToFragment(mCurrentFragmentTag);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
     }
 
     private final FragmentManager.FragmentLifecycleCallbacks mFragmentLifecycleCallbacks

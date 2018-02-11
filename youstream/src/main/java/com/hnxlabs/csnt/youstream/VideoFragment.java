@@ -98,31 +98,9 @@ public class VideoFragment extends CarFragment {
         View nonVideoLayout = v.findViewById(R.id.nonVideoLayout); // Your own view, read class comments
         ViewGroup videoLayout = (ViewGroup)v.findViewById(R.id.videoLayout); // Your own view, read class comments
 
-        nonVideoLayout.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Log.d(TAG, "video fragment key, "+i);
-                return false;
-            }
-        });
-
-        videoLayout.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int i, KeyEvent keyEvent) {
-                Log.d(TAG, "video fragment key, "+i);
-                return false;
-            }
-        });
-
         webView = (VideoWebView) v.findViewById(R.id.webview);
-        webChromeClient = new VideoEnabledWebChromeClient(nonVideoLayout, videoLayout, new ProgressBar(getContext()), webView) {
-            // Subscribe to standard events, such as onProgressChanged()...
-            @Override
-            public void onProgressChanged(WebView view, int progress)
-            {
-                // Your code...
-            }
-        };
+
+        webChromeClient = new VideoEnabledWebChromeClient(nonVideoLayout, videoLayout, new ProgressBar(getContext()), webView);
         webChromeClient.setOnToggledFullscreen(new VideoEnabledWebChromeClient.ToggledFullscreenCallback()
         {
             @Override
@@ -134,6 +112,13 @@ public class VideoFragment extends CarFragment {
                         fragmentsLifecyleListener.onReadyToDetach();
                 }
 
+            }
+        });
+
+        webView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "webview on click");
             }
         });
 
@@ -187,6 +172,16 @@ public class VideoFragment extends CarFragment {
         public void onPageFinished(WebView view, String url) {
             webView.unMute();
             webView.requestFullScreen();
+        }
+
+        @Override
+        public void onUnhandledKeyEvent (WebView view, KeyEvent event) {
+            if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT)
+                webView.seekBySeconds(30);
+
+            if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT)
+                webView.seekBySeconds(-30);
+
         }
     }
 
