@@ -1,5 +1,5 @@
 <resources>
-    <string name="disp_version">v1.0.2</string>
+    <string name="disp_version">v1.0.3</string>
     <string name="app_name">YouStream</string>
     <string name="phone_desc">This app is designed to be used only with Android Auto Interface. \n</string>
     <string name="service_name">YouStream</string>
@@ -12,6 +12,7 @@
     <string name="instruc_back">
         1. Press the back button on the car control to go back to search page.\n
         2. OR Close the fullscreen video using touch screen.\n
+        1. You can use the rotary control left / right click to seek the video by 1 minute increments.
     </string>
     <string name="instruc_openapp">
         1. Click on the Last Icon in Android Auto to see a list of all Android Auto Apps. \n

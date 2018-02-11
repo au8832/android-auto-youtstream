@@ -117,6 +117,15 @@ public class VideoWebView extends VideoEnabledWebView {
                 "}");
     }
 
+    public void playOrPause() {
+        loadUrl("javascript: var el = document.getElementsByTagName('video')[0];\n" +
+                "if(!el.paused) {" +
+                "el.pause();" +
+                "} else {" +
+                "el.play()" +
+                "}");
+    }
+
     public void pauseVideoAndSetFlag() {
         loadUrl("javascript: var el = document.getElementsByTagName('video')[0];\n" +
                 "if(!el.paused) {" +

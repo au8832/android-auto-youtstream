@@ -176,12 +176,19 @@ public class VideoFragment extends CarFragment {
 
         @Override
         public void onUnhandledKeyEvent (WebView view, KeyEvent event) {
-            if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_RIGHT)
-                webView.seekBySeconds(30);
-
-            if(event.getKeyCode() == KeyEvent.KEYCODE_DPAD_LEFT)
-                webView.seekBySeconds(-30);
-
+            if(event.getAction() == KeyEvent.ACTION_UP) {
+                switch (event.getKeyCode()) {
+                    case KeyEvent.KEYCODE_DPAD_RIGHT:
+                        webView.seekBySeconds(60);
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_LEFT:
+                        webView.seekBySeconds((-20));
+                        break;
+                    case KeyEvent.KEYCODE_DPAD_CENTER:
+                            webView.playOrPause();
+                        break;
+                }
+            }
         }
     }
 
