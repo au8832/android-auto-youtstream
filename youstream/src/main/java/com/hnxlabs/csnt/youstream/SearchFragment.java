@@ -44,30 +44,16 @@ public class SearchFragment extends CarFragment {
     private String mSelectedVideoId = "";
     private YouTube mYoutube;
     private OnMotion onMotion;
-    private OnTouch onTouch;
-    private CarUiController carUiController;
-    private FragmentsLifecyleListener fragmentsLifecyleListener;
     private SpinKitView mProgressBar;
-    private final String UI_CONTROL_KEY = "CAR_UI_CONTROLLER";
 
     public SearchFragment() {
         // Required empty public constructor
         searchList = new ArrayList<>();
         mAdapter = new CardsAdapter();
-
-
     }
 
     public String getSelectedVideoId(){
         return this.mSelectedVideoId;
-    }
-
-    public void setCarUiController(CarUiController carUiController) {
-        this.carUiController = carUiController;
-    }
-
-    public void setFragmentsLifecyleListener(FragmentsLifecyleListener fragmentsLifecyleListener){
-        this.fragmentsLifecyleListener = fragmentsLifecyleListener;
     }
 
     private void setFocus(){
@@ -99,12 +85,11 @@ public class SearchFragment extends CarFragment {
         View v = inflater.inflate(R.layout.searchview_fragment, container, false);
         mProgressBar = v.findViewById(R.id.youtubeLoading);
         mPagedListView = v.findViewById(R.id.pagedView);
-        mAdapter.setLifecyleListener(fragmentsLifecyleListener);
+        mAdapter.setLifecyleListener(getFragmentsLifecyleListener());
         mPagedListView.setAdapter(mAdapter);
         mPagedListView.setFocusable(true);
         mPagedListView.setEnabled(true);
         onMotion = new OnMotion();
-        onTouch = new OnTouch();
         mPagedListView.setOnGenericMotionListener(onMotion);
         setFocus();
         return v;
@@ -113,14 +98,6 @@ public class SearchFragment extends CarFragment {
     public void startSearch(String query){
         mProgressBar.setVisibility(View.VISIBLE);
         new Tasker(mAdapter).execute(query);
-    }
-
-    private class OnTouch implements View.OnClickListener{
-
-        @Override
-        public void onClick(View view) {
-            Log.d(TAG, "onclick items");
-        }
     }
 
     private class OnMotion implements View.OnGenericMotionListener {
@@ -152,12 +129,10 @@ public class SearchFragment extends CarFragment {
     public void onStart() {
         super.onStart();
         Log.i(TAG, "onStart");
-        if(null == carUiController)
-            carUiController = MainCarActivity.getUIController();
-        carUiController.getSearchController().showSearchBox();
-        carUiController.getStatusBarController().showAppHeader();
-        carUiController.getStatusBarController().showConnectivityLevel();
-        carUiController.getStatusBarController().setAppBarAlpha(0.8f);
+        getCarUiController().getSearchController().showSearchBox();
+        getCarUiController().getStatusBarController().showAppHeader();
+        getCarUiController().getStatusBarController().showConnectivityLevel();
+        getCarUiController().getStatusBarController().setAppBarAlpha(0.8f);
         setFocus();
     }
 
@@ -165,47 +140,7 @@ public class SearchFragment extends CarFragment {
     public void onResume() {
         super.onResume();
         Log.i(TAG, "onResume");
-        if(null == carUiController)
-            carUiController = MainCarActivity.getUIController();
-        carUiController.getSearchController().showSearchBox();
-        carUiController.getStatusBarController().showAppHeader();
-        carUiController.getStatusBarController().showConnectivityLevel();
-        carUiController.getStatusBarController().setAppBarAlpha(0.8f);
         setFocus();
-    }
-
-    @Override
-    public void onPause() {
-        Log.i(TAG, "onPause");
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroyView() {
-        Log.i(TAG, "onDestroyView");
-        super.onDestroyView();
-        onMotion = null;
-        mPagedListView.setOnGenericMotionListener(null);
-    }
-
-    @Override
-    public void onStop() {
-        Log.i(TAG, "onStop");
-        super.onStop();
-    }
-
-    @Override
-    public void onDetach() {
-        Log.i(TAG, "onDetach");
-        super.onDetach();
-        if(null != mPagedListView)
-            mPagedListView.setOnGenericMotionListener(null);
-    }
-
-    @Override
-    public void onDestroy() {
-        Log.i(TAG, "onDestroy");
-        super.onDestroy();
     }
 
     @Override
@@ -231,8 +166,8 @@ public class SearchFragment extends CarFragment {
                 search.setKey("AIzaSyAOEG8BIIFYoS8NZ-gUqVertSHj01rE18g");
                 search.setQ(strings[0]);
                 search.setType("video");
-                search.setMaxResults(20l);
-                search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
+                search.setMaxResults(30l);
+                search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url, snippet/channelTitle)");
                 SearchListResponse searchResponse = search.execute();
                 List<SearchResult> searchResultList = searchResponse.getItems();
                 this.adapter.clearAll();

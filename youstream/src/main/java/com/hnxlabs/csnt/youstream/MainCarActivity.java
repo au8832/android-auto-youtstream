@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -174,6 +175,12 @@ public class MainCarActivity extends CarActivity {
         });
 
         carUiController.getSearchController().showSearchBox();
+        StatusBarController statusBarController = carUiController.getStatusBarController();
+        statusBarController.setAppBarAlpha(1.0f);
+
+        statusBarController.setAppBarBackgroundColor(((ColorDrawable)getDrawable(R.drawable.header_title).getCurrent()).getColor());
+        getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentLifecycleCallbacks,false);
+
         /*ListMenuAdapter mainMenu = new ListMenuAdapter();
         mainMenu.setCallbacks(mMenuCallbacks);
         mainMenu.addMenuItem(MENU_HOME, new MenuItem.Builder()
@@ -201,11 +208,6 @@ public class MainCarActivity extends CarActivity {
         menuController.setRootMenuAdapter(mainMenu);
         menuController.showMenuButton();
 */
-        StatusBarController statusBarController = carUiController.getStatusBarController();
-        statusBarController.setAppBarAlpha(1.0f);
-        statusBarController.setAppBarBackgroundColor(getColor(R.color.primaryDarkColor));
-
-        getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentLifecycleCallbacks,false);
 
 
     }
@@ -249,25 +251,24 @@ public class MainCarActivity extends CarActivity {
             = new FragmentManager.FragmentLifecycleCallbacks() {
         @Override
         public void onFragmentStarted(FragmentManager fm, Fragment f) {
-            updateStatusBarTitle();
+            getCarUiController().getStatusBarController().setTitle(((CarFragment) f).getTitle());
+        }
+        @Override
+        public void onFragmentViewCreated(FragmentManager fm, Fragment f, View v, Bundle savedInstanceState){
+            ((CarFragment) f).setCarUiController(getCarUiController());
         }
     };
-
-    private void updateStatusBarTitle() {
-        CarFragment fragment = (CarFragment) getSupportFragmentManager().findFragmentByTag(mCurrentFragmentTag);
-        getCarUiController().getStatusBarController().setTitle(fragment.getTitle());
-    }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent keyEvent){
 
-        if(mCurrentFragmentTag.equals(FRAGMENT_YOUTUBE) && keyCode == 4){
+        if(mCurrentFragmentTag.equals(FRAGMENT_YOUTUBE) && keyCode == KeyEvent.KEYCODE_BACK){
             videoFragment.onBackPressed();
             switchToFragment(FRAGMENT_SEARCH);
             return true;
         }
         Log.d("search_activity", "keycode="+keyCode+" videoid="+searchFragment.getSelectedVideoId());
-        if (keyCode == 23 && mCurrentFragmentTag.equals(FRAGMENT_SEARCH) && searchFragment.getSelectedVideoId() != null) {
+        if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER && mCurrentFragmentTag.equals(FRAGMENT_SEARCH) && searchFragment.getSelectedVideoId() != null) {
             videoFragment.setVideoId(searchFragment.getSelectedVideoId());
             switchToFragment(FRAGMENT_YOUTUBE);
         }

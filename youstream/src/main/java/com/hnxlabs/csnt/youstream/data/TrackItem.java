@@ -21,7 +21,7 @@ public class TrackItem {
     public TrackItem(SearchResult sr){
         this.title = sr.getSnippet().getTitle();
         this.videoKey = sr.getId().getVideoId();
-        this.duration = sr.getSnippet().getDescription();
+        this.duration = sr.getSnippet().getChannelTitle();
         this.url = sr.getSnippet().getThumbnails().getDefault().getUrl();
     }
 

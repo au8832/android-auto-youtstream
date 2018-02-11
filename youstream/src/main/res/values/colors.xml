@@ -7,4 +7,12 @@
     <color name="secondaryColor">#e1e2e1</color>
     <color name="secondaryLightColor">#f5f5f6</color>
     <color name="secondaryTextColor">#474747</color>
+    <color name="titleNight">#560027</color>
+    <color name="titleDay">#bc477b</color>
+    <color name="fragmentBackgroundDay">#e1e2e1</color>
+    <color name="fragmentBackgroundNight">#001970</color>
+    <color name="searchResultCardNight">#303f9f</color>
+    <color name="searchResultCardDay">#e1e2e1</color>
+    <color name="textColorDay">#000000</color>
+    <color name="textColorNight">#ffffff</color>
 </resources>
