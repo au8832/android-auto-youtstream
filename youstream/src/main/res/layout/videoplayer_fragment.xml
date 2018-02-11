@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/videoLoading"
             style="@style/SpinKitView.Large.Wave"
-            app:SpinKit_Color="@color/primaryColor"
+            app:SpinKit_Color="@color/loaderColor"
             />
 
         <com.hnxlabs.csnt.youstream.ui.VideoWebView

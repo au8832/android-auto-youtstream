@@ -24,6 +24,7 @@ import com.hnxlabs.csnt.youstream.ui.VideoEnabledWebChromeClient;
 import com.hnxlabs.csnt.youstream.ui.VideoEnabledWebView;
 import com.hnxlabs.csnt.youstream.ui.VideoWebView;
 
+import java.time.Instant;
 import java.util.ArrayList;
 
 /**
@@ -40,7 +41,9 @@ public class VideoFragment extends CarFragment {
     private FragmentsLifecyleListener fragmentsLifecyleListener;
     private String VIDEO_ID_KEY = "VIDEO_ID_KEY";
     private String SAVE_TIME_ON_MODE_CHANGE_KEY = "SAVE_TIME_ON_MODE_CHANGE_KEY";
-    private String timeSaved = "";
+    private Long timeSaved = 0l;
+    private Integer jumpBySeconds = 0;
+    private boolean didJumpVideo = false;
 
 
     public VideoFragment(){
@@ -129,7 +132,6 @@ public class VideoFragment extends CarFragment {
         webView.getSettings().setLoadWithOverviewMode(true);
 
         // Navigate anywhere you want, but consider that this classes have only been tested on YouTube's mobile site
-
         return v;
     }
 
@@ -140,6 +142,8 @@ public class VideoFragment extends CarFragment {
     @Override
     public void onSaveInstanceState(Bundle bundle) {
         bundle.putString(VIDEO_ID_KEY, videoId);
+        bundle.putLong(SAVE_TIME_ON_MODE_CHANGE_KEY, timeSaved);
+        Log.d(TAG, "play-time " + timeSaved/1000);
         super.onSaveInstanceState(bundle);
     }
 
@@ -148,18 +152,14 @@ public class VideoFragment extends CarFragment {
         super.onActivityCreated(savedInstanceState);
         if(null != savedInstanceState) {
             videoId = savedInstanceState.getString(VIDEO_ID_KEY);
+            jumpBySeconds = new Long(savedInstanceState.getLong(SAVE_TIME_ON_MODE_CHANGE_KEY)/1000).intValue();
         }
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        /*webView.getCurrentTime(new ValueCallback<String>() {
-            @Override
-            public void onReceiveValue(String s) {
-                Log.d(TAG, s);
-            }
-        });*/
+        timeSaved = System.currentTimeMillis() - timeSaved;
     }
 
     @Override
@@ -170,6 +170,8 @@ public class VideoFragment extends CarFragment {
         getCarUiController().getStatusBarController().hideConnectivityLevel();
         getCarUiController().getStatusBarController().setAppBarAlpha(0f);
         webView.loadUrl("https://m.youtube.com/watch?v="+this.videoId);
+        timeSaved = System.currentTimeMillis();
+        didJumpVideo = false;
     }
 
     @Override
@@ -203,6 +205,9 @@ public class VideoFragment extends CarFragment {
         public void onPageFinished(WebView view, String url) {
             webView.unMute();
             webView.requestFullScreen();
+            if(jumpBySeconds > 0){
+                webView.seekBySeconds(jumpBySeconds);
+            }
         }
 
         @Override

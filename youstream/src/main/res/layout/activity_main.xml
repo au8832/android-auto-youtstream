@@ -12,12 +12,13 @@
         android:orientation="vertical"
         android:padding="15dp"
         tools:context="com.hnxlabs.csnt.youstream.MainActivity"
+        android:background="@drawable/fragment_background"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/disp_version"
-            android:textColor="#000000"
+            android:textColor="@drawable/text_color"
             android:layout_gravity="right"
             />
 
@@ -25,19 +26,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/phone_desc"
-            android:textColor="#000000"
+            android:textColor="@drawable/text_color"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="DISCLAIMER:"
             android:textSize="20sp"
-            android:textColor="#000000"
+            android:textColor="@drawable/text_color"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/inst_disclaimer"
+            android:textColor="@drawable/text_color"
             />
 
         <TextView
@@ -45,36 +47,39 @@
             android:layout_height="wrap_content"
             android:text="Start App:"
             android:textSize="20sp"
-            android:textColor="#000000"
+            android:textColor="@drawable/text_color"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/instruc_openapp"
+            android:textColor="@drawable/text_color"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Instructions:"
             android:textSize="20sp"
-            android:textColor="#000000"
+            android:textColor="@drawable/text_color"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/instruct_search"
+            android:textColor="@drawable/text_color"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Video View:"
             android:textSize="20sp"
-            android:textColor="#000000"
+            android:textColor="@drawable/text_color"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/instruc_back"
+            android:textColor="@drawable/text_color"
             />
 </LinearLayout>
 </ScrollView>

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         style="@style/SpinKitView.Large.Wave"
         android:layout_gravity="center"
-        app:SpinKit_Color="@color/primaryColor"
+        app:SpinKit_Color="@color/loaderColor"
         android:id="@+id/youtubeLoading"
         android:layout_marginTop="96dip"
         android:visibility="gone"
