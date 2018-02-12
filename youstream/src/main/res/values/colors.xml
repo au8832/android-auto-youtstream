@@ -2,14 +2,17 @@
 <resources>
     <color name="titleNight">#01579b</color>
     <color name="titleDay">#039be5</color>
-    <color name="fragmentBackgroundDay">#40c4ff</color>
-    <color name="fragmentBackgroundNight">#0277bd</color>
-    <color name="searchResultCardNight">#0091ea</color>
-    <color name="searchResultCardDay">#90caf9</color>
+
+    <color name="fragmentBackgroundDay">#819ca9</color>
+    <color name="fragmentBackgroundNight">#546e7a</color>
+
+    <color name="searchResultCardDay">#ffffff</color>
+    <color name="searchResultCardNight">#29434e</color>
 
     <color name="textColorDay">#000000</color>
     <color name="textColorNight">#ffffff</color>
-    <color name="loaderColor">#5e35b1</color>
+
+    <color name="loaderColor">#bf360c</color>
 
     <color name="cardItemSelected">#01579b</color>
     <color name="cardItemUnSelected">#b3e5fc</color>

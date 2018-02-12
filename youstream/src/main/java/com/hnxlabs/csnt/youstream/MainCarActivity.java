@@ -122,8 +122,7 @@ public class MainCarActivity extends CarActivity {
         });
         getCarUiController().getSearchController().showSearchBox();
         getCarUiController().getStatusBarController().showTitle();
-        getCarUiController().getStatusBarController().setAppBarAlpha(1.0f);
-        getCarUiController().getStatusBarController().setAppBarBackgroundColor(((ColorDrawable)getDrawable(R.drawable.header_title).getCurrent()).getColor());
+        getCarUiController().getStatusBarController().setAppBarAlpha(0.0f);
         getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentLifecycleCallbacks,false);
 
         /*ListMenuAdapter mainMenu = new ListMenuAdapter();

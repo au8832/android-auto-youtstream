@@ -37,7 +37,8 @@ If you like this project and want to support it please donate bitcoins to this a
 
 # Screenshots
 
-![Search Page](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s1.png)
-![Auto Complete Search](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s2.png)
+![Instruction](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s1.png)
+![App List](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s2.png)
 ![Search Results](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s3.png)
-![Video View](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s4.png)
+![Home View](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s4.png)
+![Video View](https://raw.githubusercontent.com/abrar-hnxlabs/android-auto-youtstream/master/misc/screenshots/s5.png)

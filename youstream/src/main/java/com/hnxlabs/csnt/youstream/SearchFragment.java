@@ -45,6 +45,8 @@ public class SearchFragment extends CarFragment {
     private YouTube mYoutube;
     private OnMotion onMotion;
     private SpinKitView mProgressBar;
+    private String latestSearchQuery = null;
+    private String SEARCH_QUERY_KEY = "SEACRH_QUERY_KEY";
 
     public SearchFragment() {
         // Required empty public constructor
@@ -84,6 +86,7 @@ public class SearchFragment extends CarFragment {
         View v = inflater.inflate(R.layout.searchview_fragment, container, false);
         mProgressBar = v.findViewById(R.id.youtubeLoading);
         mPagedListView = v.findViewById(R.id.pagedView);
+        mPagedListView.removeDefaultItemDecoration();
         mAdapter.setLifecyleListener(getFragmentsLifecyleListener());
         mPagedListView.setAdapter(mAdapter);
         mPagedListView.setFocusable(true);
@@ -96,7 +99,8 @@ public class SearchFragment extends CarFragment {
 
     public void startSearch(String query){
         mProgressBar.setVisibility(View.VISIBLE);
-        new Tasker(mAdapter).execute(query);
+        latestSearchQuery = query;
+        new Tasker(mAdapter).execute(latestSearchQuery);
     }
 
     private class OnMotion implements View.OnGenericMotionListener {
@@ -131,7 +135,9 @@ public class SearchFragment extends CarFragment {
         getCarUiController().getSearchController().showSearchBox();
         getCarUiController().getStatusBarController().showAppHeader();
         getCarUiController().getStatusBarController().showConnectivityLevel();
-        getCarUiController().getStatusBarController().setAppBarAlpha(0.8f);
+        getCarUiController().getStatusBarController().setAppBarAlpha(0.0f);
+        if(null != latestSearchQuery)
+            startSearch(latestSearchQuery);
         setFocus();
     }
 
@@ -145,9 +151,17 @@ public class SearchFragment extends CarFragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         // call superclass to save any view hierarchy
+        outState.putString(SEARCH_QUERY_KEY, latestSearchQuery);
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        if(null != savedInstanceState) {
+            latestSearchQuery = savedInstanceState.getString(SEARCH_QUERY_KEY);
+        }
+    }
     public class Tasker extends AsyncTask<String, String, CardsAdapter> {
 
         CardsAdapter adapter;
