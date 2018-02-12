@@ -1,60 +1,18 @@
 package com.hnxlabs.csnt.youstream;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.android.apps.auto.sdk.CarActivity;
-import com.google.android.apps.auto.sdk.CarToast;
-import com.google.android.apps.auto.sdk.CarUiController;
-import com.google.android.apps.auto.sdk.MenuController;
-import com.google.android.apps.auto.sdk.MenuItem;
 import com.google.android.apps.auto.sdk.SearchCallback;
 import com.google.android.apps.auto.sdk.SearchItem;
-import com.google.android.apps.auto.sdk.StatusBarController;
-import com.google.android.apps.auto.sdk.notification.CarNotificationExtender;
-import com.google.android.apps.auto.sdk.ui.CarLayoutManager;
-import com.google.android.apps.auto.sdk.ui.CarRecyclerView;
-import com.google.android.apps.auto.sdk.ui.PagedListView;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.youtube.player.YouTubeApiServiceUtil;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerFragment;
-import com.google.android.youtube.player.YouTubePlayerSupportFragment;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.model.SearchListResponse;
-import com.google.api.services.youtube.model.SearchResult;
-import com.hnxlabs.csnt.youstream.adapters.CardsAdapter;
-import com.hnxlabs.csnt.youstream.data.TrackItem;
 import com.hnxlabs.csnt.youstream.listeners.FragmentsLifecyleListener;
-
-import org.mortbay.jetty.Main;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,7 +36,7 @@ public class MainCarActivity extends CarActivity {
     private String mCurrentFragmentTag;
     private SearchFragment searchFragment = new SearchFragment();
     private VideoFragment videoFragment = new VideoFragment();
-    private FragmentsLifecyleListener mFragmentLifycycle = new FragmentsLifeCycleCallback();
+    private FragmentsLifecyleListener mCustomFragmentCallback = new CustomFragmentCallback();
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -206,7 +164,7 @@ public class MainCarActivity extends CarActivity {
         @Override
         public void onFragmentViewCreated(FragmentManager fm, Fragment f, View v, Bundle savedInstanceState){
             ((CarFragment) f).setCarUiController(getCarUiController());
-            ((CarFragment) f).setFragmentsLifecyleListener(mFragmentLifycycle);
+            ((CarFragment) f).setFragmentsLifecyleListener(mCustomFragmentCallback);
         }
     };
 
@@ -233,7 +191,7 @@ public class MainCarActivity extends CarActivity {
             switchToFragment(FRAGMENT_SEARCH);
     }
 
-    private class FragmentsLifeCycleCallback extends FragmentsLifecyleListener {
+    private class CustomFragmentCallback extends FragmentsLifecyleListener {
 
         @Override
         public void onReadyToDetach() {

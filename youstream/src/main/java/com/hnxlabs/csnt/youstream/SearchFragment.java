@@ -87,7 +87,6 @@ public class SearchFragment extends CarFragment {
         mProgressBar = v.findViewById(R.id.youtubeLoading);
         mPagedListView = v.findViewById(R.id.pagedView);
         mPagedListView.removeDefaultItemDecoration();
-        mAdapter.setLifecyleListener(getFragmentsLifecyleListener());
         mPagedListView.setAdapter(mAdapter);
         mPagedListView.setFocusable(true);
         mPagedListView.setEnabled(true);
@@ -100,7 +99,7 @@ public class SearchFragment extends CarFragment {
     public void startSearch(String query){
         mProgressBar.setVisibility(View.VISIBLE);
         latestSearchQuery = query;
-        new Tasker(mAdapter).execute(latestSearchQuery);
+        new Tasker(mAdapter, getFragmentsLifecyleListener()).execute(latestSearchQuery);
     }
 
     private class OnMotion implements View.OnGenericMotionListener {
@@ -136,6 +135,7 @@ public class SearchFragment extends CarFragment {
         getCarUiController().getStatusBarController().showAppHeader();
         getCarUiController().getStatusBarController().showConnectivityLevel();
         getCarUiController().getStatusBarController().setAppBarAlpha(0.0f);
+        mAdapter.setLifecyleListener(getFragmentsLifecyleListener());
         if(null != latestSearchQuery)
             startSearch(latestSearchQuery);
         setFocus();
@@ -165,8 +165,9 @@ public class SearchFragment extends CarFragment {
     public class Tasker extends AsyncTask<String, String, CardsAdapter> {
 
         CardsAdapter adapter;
-        public Tasker(CardsAdapter adapter) {
+        public Tasker(CardsAdapter adapter, FragmentsLifecyleListener callback) {
             this.adapter = adapter;
+            this.adapter.setLifecyleListener(callback);
         }
         @Override
         protected CardsAdapter doInBackground(String... strings) {

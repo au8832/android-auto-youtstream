@@ -1,7 +1,5 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
 <resources>
-    <color name="titleNight">#01579b</color>
-    <color name="titleDay">#039be5</color>
 
     <color name="fragmentBackgroundDay">#819ca9</color>
     <color name="fragmentBackgroundNight">#546e7a</color>

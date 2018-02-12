@@ -1,9 +1,8 @@
 <resources>
-    <string name="disp_version">v1.2</string>
+    <string name="disp_version">v1.3</string>
     <string name="app_name">YouStream</string>
     <string name="phone_desc">This app is designed to be used only with Android Auto Interface. \n</string>
     <string name="service_name">YouStream</string>
-    <string name="search_placeholder">Search</string>
     <string name="instruct_search">
         1. Search Youtube videos using the search bar on top. \n
         2. Use touch or the rotary control to select the video. \n
