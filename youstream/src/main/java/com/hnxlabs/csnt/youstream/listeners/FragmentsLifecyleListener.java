@@ -7,5 +7,5 @@ package com.hnxlabs.csnt.youstream.listeners;
 public abstract class FragmentsLifecyleListener {
 
     public void onReadyToDetach(){}
-    public void onClickVideo(String videoId){}
+    public void onClickVideo(String videoId, Integer position){}
 }

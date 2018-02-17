@@ -2,6 +2,7 @@ package com.hnxlabs.csnt.youstream;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -38,37 +39,44 @@ public class MainCarActivity extends CarActivity {
     private VideoFragment videoFragment = new VideoFragment();
     private FragmentsLifecyleListener mCustomFragmentCallback = new CustomFragmentCallback();
 
+    public MainCarActivity(){
+
+    }
+
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_main_car);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(R.id.fragment_container, searchFragment, FRAGMENT_SEARCH)
-                .detach(searchFragment)
-                .add(R.id.fragment_container, videoFragment, FRAGMENT_YOUTUBE)
-                .detach(videoFragment)
-                .commitNow();
-
-        String initialFragmentTag = FRAGMENT_SEARCH;
-        if (bundle != null && bundle.containsKey(CURRENT_FRAGMENT_KEY)) {
-            initialFragmentTag = bundle.getString(CURRENT_FRAGMENT_KEY);
+        if( null == bundle ) { //init fragment manager only once
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, searchFragment, FRAGMENT_SEARCH)
+                    //.detach(searchFragment)
+                    //.add(R.id.fragment_container, videoFragment, FRAGMENT_YOUTUBE)
+                    //.detach(videoFragment)
+                    .commitNow();
+            mCurrentFragmentTag = FRAGMENT_SEARCH;
         }
-        switchToFragment(initialFragmentTag);
+
+        // String initialFragmentTag = FRAGMENT_SEARCH;
+        if (bundle != null && bundle.containsKey(CURRENT_FRAGMENT_KEY)) {
+            mCurrentFragmentTag = bundle.getString(CURRENT_FRAGMENT_KEY);
+        }
+        //switchToFragment(initialFragmentTag);
 
         getCarUiController().getSearchController().setSearchCallback(new SearchCallback() {
             @Override
             public void onSearchItemSelected(SearchItem searchItem) {
                 Log.d("serachcontroll",searchItem.getTitle().toString());
                 String title = searchItem.getTitle().toString();
-                searchFragment.startSearch(title);
+                searchFragment.startSearch(title, 0);
             }
 
             @Override
             public boolean onSearchSubmitted(String s) {
                 Log.d("searchbox", s);
-                searchFragment.startSearch(s);
+                searchFragment.startSearch(s, 0);
                 return true;
             }
 
@@ -126,9 +134,12 @@ public class MainCarActivity extends CarActivity {
         }
         FragmentManager manager = getSupportFragmentManager();
         Fragment currentFragment = mCurrentFragmentTag == null ? null : manager.findFragmentByTag(mCurrentFragmentTag);
-        Fragment newFragment = manager.findFragmentByTag(tag);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        Fragment newFragment = manager.findFragmentByTag(tag);
+
         if (currentFragment != null) {
+            if(mCurrentFragmentTag.equals(FRAGMENT_SEARCH))
+                transaction.replace(R.id.fragment_container, currentFragment, mCurrentFragmentTag);
             transaction.detach(currentFragment);
         }
         transaction.attach(newFragment);
@@ -136,10 +147,43 @@ public class MainCarActivity extends CarActivity {
         mCurrentFragmentTag = tag;
     }
 
+    private void playVideo(String videoId){
+        VideoFragment v = new VideoFragment();
+        v.setVideoId(videoId);
+        FragmentManager manager = getSupportFragmentManager();
+        Fragment searchFragment = manager.findFragmentByTag(FRAGMENT_SEARCH);
+        manager.beginTransaction()
+                .replace(R.id.fragment_container, searchFragment, FRAGMENT_SEARCH)
+                .detach(searchFragment)
+                .add(R.id.fragment_container, v, FRAGMENT_YOUTUBE)
+                .commit();
+        mCurrentFragmentTag = FRAGMENT_YOUTUBE;
+    }
+
+    private void playVideo(String videoId, int pos){
+        FragmentManager manager = getSupportFragmentManager();
+        SearchFragment searchFragment = (SearchFragment) manager.findFragmentByTag(FRAGMENT_SEARCH);
+        searchFragment.setSelectedPos(pos);
+        manager.beginTransaction()
+                .replace(R.id.fragment_container, searchFragment, FRAGMENT_SEARCH)
+                .commit();
+        playVideo(videoId);
+    }
+
+    private void stopVideo(){
+        FragmentManager manager = getSupportFragmentManager();
+        Fragment videoFragement = manager.findFragmentByTag(FRAGMENT_YOUTUBE);
+        Fragment searchFragment = manager.findFragmentByTag(FRAGMENT_SEARCH);
+        manager.beginTransaction()
+                .remove(videoFragement)
+                .attach(searchFragment)
+                .commit();
+        mCurrentFragmentTag = FRAGMENT_SEARCH;
+    }
+
     @Override
     public void onStart() {
         super.onStart();
-        // switchToFragment(mCurrentFragmentTag);
     }
 
     @Override
@@ -173,13 +217,16 @@ public class MainCarActivity extends CarActivity {
 
         if(mCurrentFragmentTag.equals(FRAGMENT_YOUTUBE) && keyCode == KeyEvent.KEYCODE_BACK){
             videoFragment.onBackPressed();
-            switchToFragment(FRAGMENT_SEARCH);
+            //switchToFragment(FRAGMENT_SEARCH);
+            stopVideo();
             return true;
         }
-        Log.d("search_activity", "keycode="+keyCode+" videoid="+searchFragment.getSelectedVideoId());
-        if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER && mCurrentFragmentTag.equals(FRAGMENT_SEARCH) && searchFragment.getSelectedVideoId() != null) {
-            videoFragment.setVideoId(searchFragment.getSelectedVideoId());
-            switchToFragment(FRAGMENT_YOUTUBE);
+        String videoId = searchFragment.getSelectedVideoId();
+        Log.d("search_activity", "keycode="+keyCode+" videoid="+videoId);
+        if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER && mCurrentFragmentTag.equals(FRAGMENT_SEARCH) &&  videoId != null) {
+            //videoFragment.setVideoId(searchFragment.getSelectedVideoId());
+            //switchToFragment(FRAGMENT_YOUTUBE);
+            playVideo(videoId);
         }
         return false;
     }
@@ -187,8 +234,10 @@ public class MainCarActivity extends CarActivity {
     @Override
     public void onBackPressed(){
         Log.d(mCurrentFragmentTag,"Back Pressed");
-        if(mCurrentFragmentTag.equals(FRAGMENT_YOUTUBE))
-            switchToFragment(FRAGMENT_SEARCH);
+        if(mCurrentFragmentTag.equals(FRAGMENT_YOUTUBE)){
+            stopVideo();
+        }
+            //switchToFragment(FRAGMENT_SEARCH);
     }
 
     private class CustomFragmentCallback extends FragmentsLifecyleListener {
@@ -200,11 +249,12 @@ public class MainCarActivity extends CarActivity {
             onBackPressed();
         }
         @Override
-        public void onClickVideo(String videoId) {
-            super.onClickVideo(videoId);
-            if (mCurrentFragmentTag.equals(FRAGMENT_SEARCH) && searchFragment.getSelectedVideoId() != null) {
-                videoFragment.setVideoId(videoId);
-                switchToFragment(FRAGMENT_YOUTUBE);
+        public void onClickVideo(String videoId, Integer pos) {
+            super.onClickVideo(videoId, pos);
+            if (mCurrentFragmentTag.equals(FRAGMENT_SEARCH) && videoId != null) {
+                //videoFragment.setVideoId(videoId);
+                //switchToFragment(FRAGMENT_YOUTUBE);
+                playVideo(videoId, pos);
             }
         }
     }

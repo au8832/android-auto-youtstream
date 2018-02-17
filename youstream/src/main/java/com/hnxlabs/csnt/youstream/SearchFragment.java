@@ -40,13 +40,14 @@ public class SearchFragment extends CarFragment {
     private CardsAdapter mAdapter;
     private ArrayList<TrackItem> searchList;
     private PagedListView mPagedListView;
-    private int selectedPos = RecyclerView.NO_POSITION;
-    private String mSelectedVideoId = "";
+    private int selectedPos = 0;
     private YouTube mYoutube;
     private OnMotion onMotion;
     private SpinKitView mProgressBar;
     private String latestSearchQuery = null;
     private String SEARCH_QUERY_KEY = "SEACRH_QUERY_KEY";
+    private String SELECTED_POS_KEY = "SELECTED_POS_KEY";
+    private String SEARCH_FRAGMENT_KEY = "SEARCH_FRAGMENT_KEY";
 
     public SearchFragment() {
         // Required empty public constructor
@@ -55,12 +56,16 @@ public class SearchFragment extends CarFragment {
     }
 
     public String getSelectedVideoId(){
-        return this.mSelectedVideoId;
+        return this.mAdapter.getVideoId(selectedPos);
     }
 
     private void setFocus(){
         if(mPagedListView != null)
             mPagedListView.requestFocus();
+    }
+
+    public void setSelectedPos(int selectedPos) {
+        this.selectedPos = selectedPos;
     }
 
     @Override
@@ -99,7 +104,12 @@ public class SearchFragment extends CarFragment {
     public void startSearch(String query){
         mProgressBar.setVisibility(View.VISIBLE);
         latestSearchQuery = query;
-        new Tasker(mAdapter, getFragmentsLifecyleListener()).execute(latestSearchQuery);
+        new Tasker(mAdapter, getFragmentsLifecyleListener(), selectedPos).execute(latestSearchQuery);
+    }
+
+    public void startSearch(String query, int position){
+        this.selectedPos = position;
+        this.startSearch(query);
     }
 
     private class OnMotion implements View.OnGenericMotionListener {
@@ -109,42 +119,51 @@ public class SearchFragment extends CarFragment {
             Log.d(TAG, "setting view selected");
             float direction = motionEvent.getAxisValue(MotionEvent.AXIS_VSCROLL);
             // set the current position within bounds
-            if (selectedPos > mAdapter.getItemCount())
-                selectedPos = mAdapter.getItemCount();
-
-            if (selectedPos < 0)
-                selectedPos = -1;
-
-            if (direction == 1.0f) { //direction down
-                mAdapter.select(selectedPos, true);
-                mPagedListView.scrollToPosition(++selectedPos);
-            } else if (direction == -1.0f && selectedPos >=0) {
-                mAdapter.select(selectedPos, false);
-                mPagedListView.scrollToPosition(--selectedPos);
-            }
-            mSelectedVideoId = mAdapter.getVideoId(selectedPos);
+            scrollWithDirection(direction);
             return true;
         }
+    }
+
+    private void scrollWithDirection(float direction){
+
+        if (direction == 1.0f) { //direction down
+            if (selectedPos > mAdapter.getItemCount() - 2)
+                selectedPos = mAdapter.getItemCount() - 2;
+            scrollTo(++selectedPos);
+        } else if (direction == -1.0f ) {
+            if (selectedPos < 1)
+                selectedPos = 1;
+            scrollTo(--selectedPos);
+        }
+    }
+
+    private void scrollTo(Integer index){
+        mAdapter.selectIndex(index);
+        mPagedListView.scrollToPosition(index);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart");
         getCarUiController().getSearchController().showSearchBox();
         getCarUiController().getStatusBarController().showAppHeader();
         getCarUiController().getStatusBarController().showConnectivityLevel();
         getCarUiController().getStatusBarController().setAppBarAlpha(0.0f);
-        mAdapter.setLifecyleListener(getFragmentsLifecyleListener());
-        if(null != latestSearchQuery)
-            startSearch(latestSearchQuery);
+
         setFocus();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.i(TAG, "onResume");
+        mAdapter.setLifecyleListener(getFragmentsLifecyleListener());
+        int size = mAdapter.getItemCount();
+        if(null != latestSearchQuery && !latestSearchQuery.isEmpty() && size < 1) {
+            startSearch(latestSearchQuery);
+        }
+        else {
+            scrollTo(selectedPos);
+        }
         setFocus();
     }
 
@@ -152,6 +171,8 @@ public class SearchFragment extends CarFragment {
     public void onSaveInstanceState(Bundle outState) {
         // call superclass to save any view hierarchy
         outState.putString(SEARCH_QUERY_KEY, latestSearchQuery);
+        outState.putInt(SELECTED_POS_KEY, selectedPos);
+
         super.onSaveInstanceState(outState);
     }
 
@@ -160,14 +181,18 @@ public class SearchFragment extends CarFragment {
         super.onActivityCreated(savedInstanceState);
         if(null != savedInstanceState) {
             latestSearchQuery = savedInstanceState.getString(SEARCH_QUERY_KEY);
+            selectedPos = savedInstanceState.getInt(SELECTED_POS_KEY);
         }
     }
+
     public class Tasker extends AsyncTask<String, String, CardsAdapter> {
 
         CardsAdapter adapter;
-        public Tasker(CardsAdapter adapter, FragmentsLifecyleListener callback) {
+        private int position;
+        public Tasker(CardsAdapter adapter, FragmentsLifecyleListener callback, int pos) {
             this.adapter = adapter;
             this.adapter.setLifecyleListener(callback);
+            this.position = pos;
         }
         @Override
         protected CardsAdapter doInBackground(String... strings) {
@@ -185,7 +210,6 @@ public class SearchFragment extends CarFragment {
                 SearchListResponse searchResponse = search.execute();
                 List<SearchResult> searchResultList = searchResponse.getItems();
                 this.adapter.clearAll();
-                selectedPos = RecyclerView.NO_POSITION;
                 for(SearchResult s: searchResultList) {
                     this.adapter.add(new TrackItem(s));
                 }
@@ -199,6 +223,7 @@ public class SearchFragment extends CarFragment {
         protected void onPostExecute(CardsAdapter result) {
             mProgressBar.setVisibility(View.GONE);
             result.notifyDataSetChanged();
+            scrollTo(position);
         }
     }
 

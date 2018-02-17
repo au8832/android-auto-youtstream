@@ -45,34 +45,36 @@ public class CardsAdapter extends CarRecyclerView.Adapter<CardsAdapter.ViewHolde
         // each data item is just a string in this case
         public View mView;
         private TrackItem t;
+        private int itemPosition;
         public ViewHolder(View v) {
             super(v);
-            mView = v;
+            this.mView = v;
             mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if(CardsAdapter.lifecyleListener != null)
-                        lifecyleListener.onClickVideo(t.getVideoKey());
+                        lifecyleListener.onClickVideo(t.getVideoKey(), getItemPosition());
                 }
             });
-        }
-
-        public TrackItem getT() {
-            return t;
         }
 
         public void setT(TrackItem t) {
             this.t = t;
         }
+
+        public int getItemPosition() {
+            return itemPosition;
+        }
+
+        public void setItemPosition(int itemPosition) {
+            this.itemPosition = itemPosition;
+        }
     }
 
-    public void select(int pos, boolean scrollDown) {
+    public void selectIndex(Integer pos){
+        int previousPositon = currentPosition;
         currentPosition = pos;
-        notifyItemChanged(currentPosition);
-        if(scrollDown)
-            currentPosition++;
-        else
-            currentPosition--;
+        notifyItemChanged(previousPositon);
         notifyItemChanged(currentPosition);
     }
 
@@ -133,6 +135,7 @@ public class CardsAdapter extends CarRecyclerView.Adapter<CardsAdapter.ViewHolde
         TextView t = (TextView) holder.mView.findViewById(R.id.title);
         TextView t2 = (TextView) holder.mView.findViewById(R.id.duration);
         ImageView iv = (ImageView) holder.mView.findViewById(R.id.thumbnail);
+        holder.setItemPosition(position);
         try {
             new DownloadImageFromInternet(iv).execute(mDataset.get(position).getUrl());
         } catch (Exception e) {

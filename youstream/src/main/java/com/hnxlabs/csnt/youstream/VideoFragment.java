@@ -35,15 +35,14 @@ public class VideoFragment extends CarFragment {
 
     private String TAG ="videoFrgmet";
     private VideoWebView webView;
-    private String videoId;
+    private String videoId = null;
     private VideoEnabledWebChromeClient webChromeClient;
     private Button backBtn;
     private FragmentsLifecyleListener fragmentsLifecyleListener;
     private String VIDEO_ID_KEY = "VIDEO_ID_KEY";
-    private String SAVE_TIME_ON_MODE_CHANGE_KEY = "SAVE_TIME_ON_MODE_CHANGE_KEY";
-    private Long timeSaved = 0l;
-    private Integer jumpBySeconds = 0;
-    private boolean didJumpVideo = false;
+    private String SAVE_VIDEO_PLAY_TIME = "SAVE_VIDEO_PLAY_TIME";
+    private Long timeStart = 0l;
+    private Integer videoPlayTime = 0;
 
 
     public VideoFragment(){
@@ -64,13 +63,12 @@ public class VideoFragment extends CarFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.i(TAG, "onAttach");
-
         setTitle("Video Player");
-
     }
 
     public void setVideoId(String videoId){
         this.videoId = videoId;
+        this.videoPlayTime = 0;
     }
 
     public void onBackPressed() {
@@ -142,8 +140,7 @@ public class VideoFragment extends CarFragment {
     @Override
     public void onSaveInstanceState(Bundle bundle) {
         bundle.putString(VIDEO_ID_KEY, videoId);
-        bundle.putLong(SAVE_TIME_ON_MODE_CHANGE_KEY, timeSaved);
-        Log.d(TAG, "play-time " + timeSaved/1000);
+        bundle.putLong(SAVE_VIDEO_PLAY_TIME, videoPlayTime);
         super.onSaveInstanceState(bundle);
     }
 
@@ -152,14 +149,14 @@ public class VideoFragment extends CarFragment {
         super.onActivityCreated(savedInstanceState);
         if(null != savedInstanceState) {
             videoId = savedInstanceState.getString(VIDEO_ID_KEY);
-            jumpBySeconds = new Long(savedInstanceState.getLong(SAVE_TIME_ON_MODE_CHANGE_KEY)/1000).intValue();
+            videoPlayTime = new Long(savedInstanceState.getLong(SAVE_VIDEO_PLAY_TIME)).intValue();
         }
     }
 
     @Override
     public void onPause(){
         super.onPause();
-        timeSaved = System.currentTimeMillis() - timeSaved;
+        videoPlayTime =new Long(System.currentTimeMillis() - timeStart).intValue()/1000 + videoPlayTime;
     }
 
     @Override
@@ -170,8 +167,7 @@ public class VideoFragment extends CarFragment {
         getCarUiController().getStatusBarController().hideConnectivityLevel();
         getCarUiController().getStatusBarController().setAppBarAlpha(0f);
         webView.loadUrl("https://m.youtube.com/watch?v="+this.videoId);
-        timeSaved = System.currentTimeMillis();
-        didJumpVideo = false;
+        timeStart = System.currentTimeMillis();
     }
 
     @Override
@@ -205,9 +201,7 @@ public class VideoFragment extends CarFragment {
         public void onPageFinished(WebView view, String url) {
             webView.unMute();
             webView.requestFullScreen();
-            if(jumpBySeconds > 0){
-                webView.seekBySeconds(jumpBySeconds);
-            }
+            webView.seekBySeconds(videoPlayTime);
         }
 
         @Override
