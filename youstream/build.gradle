@@ -11,8 +11,8 @@ android {
         applicationId "com.hnxlabs.csnt.youstream"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 7
-        versionName "1.4"
+        versionCode 9
+        versionName "1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

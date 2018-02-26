@@ -2,11 +2,9 @@ package com.hnxlabs.csnt.youstream.adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +15,9 @@ import com.google.android.apps.auto.sdk.ui.CarRecyclerView;
 import com.google.android.apps.auto.sdk.ui.PagedListView;
 import com.hnxlabs.csnt.youstream.R;
 import com.hnxlabs.csnt.youstream.data.TrackItem;
-import com.hnxlabs.csnt.youstream.listeners.FragmentsLifecyleListener;
-
-import org.mortbay.jetty.HttpURI;
+import com.hnxlabs.csnt.youstream.listeners.FragmentCustomEvents;
 
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +29,7 @@ public class CardsAdapter extends CarRecyclerView.Adapter<CardsAdapter.ViewHolde
 
     private int mItemsMax = -1;
     private int currentPosition = RecyclerView.NO_POSITION;
-    private static FragmentsLifecyleListener lifecyleListener;
+    private static FragmentCustomEvents lifecyleListener;
 
     @Override
     public void setMaxItems(int i) {
@@ -101,7 +96,7 @@ public class CardsAdapter extends CarRecyclerView.Adapter<CardsAdapter.ViewHolde
         this.mDataset = new ArrayList<>();
     }
 
-    public void setLifecyleListener(FragmentsLifecyleListener lifecyleListener){
+    public void setLifecyleListener(FragmentCustomEvents lifecyleListener){
         CardsAdapter.lifecyleListener = lifecyleListener;
     }
 

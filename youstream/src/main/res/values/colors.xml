@@ -1,11 +1,11 @@
 <!--?xml version="1.0" encoding="UTF-8"?-->
 <resources>
 
-    <color name="fragmentBackgroundDay">#819ca9</color>
-    <color name="fragmentBackgroundNight">#546e7a</color>
+    <color name="fragmentBackgroundDay">#efefef</color>
+    <color name="fragmentBackgroundNight">#424242</color>
 
     <color name="searchResultCardDay">#ffffff</color>
-    <color name="searchResultCardNight">#29434e</color>
+    <color name="searchResultCardNight">#1b1b1b</color>
 
     <color name="textColorDay">#000000</color>
     <color name="textColorNight">#ffffff</color>
