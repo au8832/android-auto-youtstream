@@ -1,4 +1,4 @@
-package com.hnxlabs.csnt.youstream.ui;
+package com.hnxlabs.csnt.ee5ceb443af.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;

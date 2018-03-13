@@ -1,7 +1,5 @@
-package com.hnxlabs.csnt.youstream.fragments;
+package com.hnxlabs.csnt.ee5ceb443af.fragments;
 
-import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,23 +9,13 @@ import android.view.ViewGroup;
 
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.apps.auto.sdk.ui.PagedListView;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.services.youtube.YouTube;
-import com.google.api.services.youtube.model.SearchListResponse;
-import com.google.api.services.youtube.model.SearchResult;
-import com.hnxlabs.csnt.youstream.R;
-import com.hnxlabs.csnt.youstream.adapters.CardsAdapter;
-import com.hnxlabs.csnt.youstream.asynctasks.YoutubeSearchTask;
-import com.hnxlabs.csnt.youstream.data.TrackItem;
-import com.hnxlabs.csnt.youstream.listeners.FragmentCustomEvents;
+import com.hnxlabs.csnt.ee5ceb443af.R;
+import com.hnxlabs.csnt.ee5ceb443af.adapters.CardsAdapter;
+import com.hnxlabs.csnt.ee5ceb443af.asynctasks.YoutubeSearchTask;
+import com.hnxlabs.csnt.ee5ceb443af.data.TrackItem;
+import com.hnxlabs.csnt.ee5ceb443af.listeners.FragmentCustomEvents;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by ahmed abrar on 2/4/18.

@@ -1,4 +1,4 @@
-package com.hnxlabs.csnt.youstream.adapters;
+package com.hnxlabs.csnt.ee5ceb443af.adapters;
 
 import android.util.SparseArray;
 

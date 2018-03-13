@@ -1,4 +1,4 @@
-package com.hnxlabs.csnt.youstream;
+package com.hnxlabs.csnt.ee5ceb443af;
 
 import org.junit.Test;
 

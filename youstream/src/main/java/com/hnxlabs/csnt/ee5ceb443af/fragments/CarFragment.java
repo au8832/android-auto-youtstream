@@ -1,10 +1,10 @@
-package com.hnxlabs.csnt.youstream.fragments;
+package com.hnxlabs.csnt.ee5ceb443af.fragments;
 
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 
 import com.google.android.apps.auto.sdk.CarUiController;
-import com.hnxlabs.csnt.youstream.listeners.FragmentCustomEvents;
+import com.hnxlabs.csnt.ee5ceb443af.listeners.FragmentCustomEvents;
 
 /**
  * Created by ahmed abrar on 2/4/18.

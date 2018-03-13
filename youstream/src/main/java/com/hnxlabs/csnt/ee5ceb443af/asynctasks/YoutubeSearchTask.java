@@ -1,8 +1,7 @@
-package com.hnxlabs.csnt.youstream.asynctasks;
+package com.hnxlabs.csnt.ee5ceb443af.asynctasks;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
 
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
@@ -11,9 +10,8 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
-import com.hnxlabs.csnt.youstream.adapters.CardsAdapter;
-import com.hnxlabs.csnt.youstream.data.TrackItem;
-import com.hnxlabs.csnt.youstream.fragments.SearchFragment;
+import com.hnxlabs.csnt.ee5ceb443af.data.TrackItem;
+import com.hnxlabs.csnt.ee5ceb443af.fragments.SearchFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;

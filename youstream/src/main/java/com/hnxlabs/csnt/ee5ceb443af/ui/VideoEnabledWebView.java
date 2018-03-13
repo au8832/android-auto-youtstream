@@ -1,4 +1,4 @@
-package com.hnxlabs.csnt.youstream.ui;
+package com.hnxlabs.csnt.ee5ceb443af.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 

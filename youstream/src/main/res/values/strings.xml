@@ -1,5 +1,5 @@
 <resources>
-    <string name="disp_version">v1.6</string>
+    <string name="disp_version">v1.7</string>
     <string name="app_name">YouStream</string>
     <string name="phone_desc">This app is designed to be used only with Android Auto Interface. \n</string>
     <string name="service_name">YouStream</string>

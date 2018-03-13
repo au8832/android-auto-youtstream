@@ -1,4 +1,4 @@
-package com.hnxlabs.csnt.youstream.adapters;
+package com.hnxlabs.csnt.ee5ceb443af.adapters;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.google.android.apps.auto.sdk.ui.CarRecyclerView;
 import com.google.android.apps.auto.sdk.ui.PagedListView;
-import com.hnxlabs.csnt.youstream.R;
-import com.hnxlabs.csnt.youstream.data.TrackItem;
-import com.hnxlabs.csnt.youstream.listeners.FragmentCustomEvents;
+import com.hnxlabs.csnt.ee5ceb443af.R;
+import com.hnxlabs.csnt.ee5ceb443af.data.TrackItem;
+import com.hnxlabs.csnt.ee5ceb443af.listeners.FragmentCustomEvents;
 
 import java.io.InputStream;
 import java.util.ArrayList;

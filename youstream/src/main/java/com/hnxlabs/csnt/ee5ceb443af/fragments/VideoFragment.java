@@ -1,6 +1,5 @@
-package com.hnxlabs.csnt.youstream.fragments;
+package com.hnxlabs.csnt.ee5ceb443af.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -12,10 +11,10 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.hnxlabs.csnt.youstream.R;
-import com.hnxlabs.csnt.youstream.listeners.FragmentCustomEvents;
-import com.hnxlabs.csnt.youstream.ui.VideoEnabledWebChromeClient;
-import com.hnxlabs.csnt.youstream.ui.VideoWebView;
+import com.hnxlabs.csnt.ee5ceb443af.R;
+import com.hnxlabs.csnt.ee5ceb443af.listeners.FragmentCustomEvents;
+import com.hnxlabs.csnt.ee5ceb443af.ui.VideoEnabledWebChromeClient;
+import com.hnxlabs.csnt.ee5ceb443af.ui.VideoWebView;
 
 /**
  * Created by ahmed abrar on 2/8/18.

@@ -1,4 +1,4 @@
-package com.hnxlabs.csnt.youstream.data;
+package com.hnxlabs.csnt.ee5ceb443af.data;
 
 import com.google.api.services.youtube.model.SearchResult;
 

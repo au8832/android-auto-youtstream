@@ -1,4 +1,4 @@
-package com.hnxlabs.csnt.youstream;
+package com.hnxlabs.csnt.ee5ceb443af;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,11 +9,11 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.google.android.apps.auto.sdk.CarActivity;
-import com.hnxlabs.csnt.youstream.fragments.CarFragment;
-import com.hnxlabs.csnt.youstream.fragments.SearchFragment;
-import com.hnxlabs.csnt.youstream.fragments.VideoFragment;
-import com.hnxlabs.csnt.youstream.listeners.FragmentCustomEvents;
-import com.hnxlabs.csnt.youstream.listeners.MenuBarSearchListener;
+import com.hnxlabs.csnt.ee5ceb443af.fragments.CarFragment;
+import com.hnxlabs.csnt.ee5ceb443af.fragments.SearchFragment;
+import com.hnxlabs.csnt.ee5ceb443af.fragments.VideoFragment;
+import com.hnxlabs.csnt.ee5ceb443af.listeners.FragmentCustomEvents;
+import com.hnxlabs.csnt.ee5ceb443af.listeners.MenuBarSearchListener;
 
 /**
  * Created by ahmed abrar on 2/4/18.

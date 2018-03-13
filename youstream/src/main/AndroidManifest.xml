@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.hnxlabs.csnt.youstream">
+    package="com.hnxlabs.csnt.ee5ceb443af">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,7 +16,7 @@
         android:theme="@style/Base.Theme.AppCompat"
         >
 
-        <activity android:name="com.hnxlabs.csnt.youstream.MainActivity">
+        <activity android:name="com.hnxlabs.csnt.ee5ceb443af.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainCarActivity" />
+        <activity android:name="com.hnxlabs.csnt.ee5ceb443af.MainCarActivity" />
         <meta-data
             android:name="com.google.android.gms.car.application"
             android:resource="@xml/automotive_app_desc" />
@@ -34,7 +34,7 @@
          MediaBrowser (for browsing) and MediaController (for playback control)
         -->
         <service
-            android:name=".CarService"
+            android:name="com.hnxlabs.csnt.ee5ceb443af.CarService"
             android:label="@string/service_name"
             tools:ignore="ExportedService">
             <intent-filter>

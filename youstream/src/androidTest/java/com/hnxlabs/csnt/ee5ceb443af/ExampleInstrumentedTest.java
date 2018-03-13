@@ -1,4 +1,4 @@
-package com.hnxlabs.csnt.youstream;
+package com.hnxlabs.csnt.ee5ceb443af;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

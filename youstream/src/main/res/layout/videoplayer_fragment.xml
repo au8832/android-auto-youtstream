@@ -35,7 +35,7 @@
             app:SpinKit_Color="@color/loaderColor"
             />
 
-        <com.hnxlabs.csnt.youstream.ui.VideoWebView
+        <com.hnxlabs.csnt.ee5ceb443af.ui.VideoWebView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/webview"

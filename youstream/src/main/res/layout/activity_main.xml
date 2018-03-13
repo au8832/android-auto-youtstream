@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="15dp"
-        tools:context="com.hnxlabs.csnt.youstream.MainActivity"
+        tools:context="com.hnxlabs.csnt.ee5ceb443af.MainActivity"
         android:background="#ffffff"
         >
         <TextView
